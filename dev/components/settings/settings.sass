@@ -1,0 +1,623 @@
+.settings
+  &__head
+    display: none
+  &__heading
+    position: relative
+    padding: 30px 0 25px 25px
+    font:
+      size: 18px
+      weight: 500
+    &:before
+      content: ""
+      position: absolute
+      top: 35px
+      left: 0
+      width: 16px
+      height: 17px
+      background:
+        image: url('../img/icons/gear-gradient.svg')
+        size: contain
+        position: center
+        repeat: no-repeat
+  &__grid
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: stretch
+  &__sidebar
+    width: 250px
+  &__filter
+    position: sticky
+    top: 70px
+    width: 100%
+    padding: 15px 0
+    border-radius: 10px
+    background-color: $white
+  &__link
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-start
+    align-items: center
+    height: 40px
+    padding-left: 25px
+    color: $black
+    text-decoration: none
+    transition: background-color .3s ease
+    font:
+      size: 16px
+      weight: 500
+    &:hover
+      background-color: $grey-light
+    &--active
+      pointer-events: none
+      position: relative
+      background-color: $grey-light
+      &:before
+        content: ''
+        position: absolute
+        top: 0
+        left: 0
+        width: 4px
+        height: 100%
+        background-image: $gradient
+  &__main
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: flex-start
+    width: 960px
+  &__verification
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: flex-start
+    width: 960px
+    .settings__col
+      &:first-child
+        width: 600px
+      &:last-child
+        width: 325px
+  &__subgrid
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: stretch
+    margin-bottom: 35px
+    .settings__card
+      margin-bottom: 0 !important
+      &:first-child
+        width: 240px
+        min-height: 100%
+      &:last-child
+        width: 325px
+        min-height: 100%
+  &__dropdown
+    position: relative
+    width: 100%
+    &.js-settings-dropdown--active
+      & > .settings__dropdown-item:after
+        transform: rotate(180deg)
+      .settings__dropdown-item:hover
+        background-color: $white
+    &--reverse > .settings__dropdown-item:after
+      left: auto !important
+      right: -24px
+    & > .settings__dropdown-item
+      z-index: 2
+      position: relative
+      background-color: $grey-light
+      &:after
+        z-index: 2
+        content: ''
+        position: absolute
+        left: 6px
+        top: 8px
+        width: 24px
+        height: 24px
+        transition: transform .3s ease
+        background:
+          image: url('../img/icons/caret.svg')
+          position: center
+          repeat: no-repeat
+    &-item
+      z-index: 2
+      padding: 9px 10px 9px 35px
+      border-radius: 10px
+      cursor: pointer
+      white-space: nowrap
+      transition: background-color .3s ease
+      font:
+        size: 15px
+        weight: 500
+    &-inner
+      z-index: 1
+      position: absolute
+      top: 0
+      left: 0
+      display: none
+      width: 100%
+      padding-top: 40px
+      border-radius: 10px
+      background-color: $grey-light
+      box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12)
+  &__label
+    margin-bottom: 10px
+    color: $grey
+    line-height: 1.33
+    font:
+      size: 14px
+      weight: 500
+  &__why
+    &-heading
+      margin-bottom: 30px
+      font:
+        size: 14px
+        weight: 500
+    &-desc
+      line-height: 1.75
+      font-size: 14px
+  &__verification
+    &-desc
+      width: 500px
+      margin-bottom: 30px
+      line-height: 1.633
+      font:
+        size: 14px
+        weight: 500
+    &-actions
+      display: flex
+      flex-flow: row nowrap
+      justify-content: space-between
+      align-items: center
+    &-approved
+      flex-shrink: 0
+      width: calc(100% - 135px)
+      margin-right: 25px
+    &-declined
+      flex-shrink: 0
+      width: calc(100% - 190px)
+      margin-right: 25px
+    &-check
+      display: flex
+      flex-flow: row nowrap
+      justify-content: center
+      align-items: center
+      height: 48px
+      padding-bottom: 2px
+      border-radius: 10px
+      background-color: $grey
+      color: $white
+      font:
+        size: 14px
+        weight: 500
+  &__col
+    &:first-child
+      width: 325px
+    &:last-child
+      width: 600px
+  &__card
+    padding: 25px
+    border-radius: 10px
+    background-color: $white
+    &:not(:last-child)
+      margin-bottom: 35px
+    &--mobile
+      display: none
+  &__input
+    &:not(:last-child)
+      margin-bottom: 25px
+  &__email
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: flex-start
+    &-approved
+      width: 150px
+    &-change
+      width: 115px
+  &__phone
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: stretch
+    &-col
+      display: flex
+      flex-flow: column nowrap
+      justify-content: flex-start
+      align-items: stretch
+      &:first-child
+        width: 280px
+      &:last-child
+        width: 250px
+    &-input
+      margin-bottom: 10px
+    &-pass
+      width: calc(100% - 35px)
+      margin-bottom: 10px
+      &:after
+        opacity: 0
+        content: ''
+        position: absolute
+        right: -35px
+        top: calc(50% - 10px)
+        width: 20px
+        height: 20px
+        background:
+          image: url('../img/icons/failure.svg')
+          size: contain
+          position: center
+          repeat: no-repeat
+      &--failure:after
+        opacity: 1
+    &-btn
+      margin-top: 28px
+    &-code
+      margin-bottom: 10px
+      color: $grey
+      line-height: 1.33
+      font:
+        size: 14px
+        weight: 500
+    &-result
+      display: none
+      height: 18px
+      margin-bottom: 10px
+      line-height: 1.33
+      font:
+        size: 14px
+        weight: 500
+      &--success
+        color: $green
+      &--failure
+        color: $red
+    &-resend
+      margin: auto 0 0 auto
+    &-approved
+      margin: 28px 0 16px
+  &__desc
+    color: $grey
+    line-height: 1.33
+    font:
+      size: 14px
+      weight: 500
+  &__token
+    margin-top: -10px
+    line-height: 1.33
+    font:
+      size: 14px
+      weight: 500
+  &__qr
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-start
+    align-items: center
+    margin-bottom: 20px
+    &-image
+      width: 90px
+      height: auto
+      margin-right: 15px
+    &-desc
+      width: 345px
+      color: $grey
+      line-height: 1.33
+      font:
+        size: 14px
+        weight: 500
+  &__twofactor
+    display: flex
+    felx-flow: row nowrap
+    justify-content: space-between
+    align-items: flex-end
+    &-input
+      width: 275px
+      margin-bottom: 0 !important
+    &-approved
+      width: 200px
+    &-btn
+      width: 265px
+  &__approved
+    margin-bottom: 10px
+  &__preferences
+    &-title
+      margin-bottom: 25px
+      font:
+        size: 16px
+        weight: 500
+    &-checkbox
+      margin-bottom: 25px
+  &__blacklist
+    width: 100%
+    &-head
+      display: flex
+      flex-flow: row nowrap
+      justify-content: flex-start
+      align-items: center
+      margin-bottom: 10px
+      &-cell
+        color: $grey
+        font:
+          size: 14px
+          weight: 500
+        &:first-child
+          width: 285px
+        &:nth-child(2)
+          width: 170px
+        &:last-child
+          width: 455px
+          text-align: right
+    &-item
+      display: flex
+      flex-flow: row nowrap
+      justify-content: flex-start
+      align-items: center
+      padding: 10px 20px 10px 25px
+      border-radius: 10px
+      background-color: $grey-light
+      &:not(:last-child)
+        margin-bottom: 10px
+      &-user
+        width: 260px
+        font:
+          size: 14px
+          weight: 500
+        a
+          color: $black
+          text-decoration: none
+          transition: color .3s ease
+          &:hover
+            color: $violet
+      &-date
+        width: 170px
+        color: $grey
+        font:
+          size: 14px
+          weight: 500
+      &-remove
+        margin-left: auto
+  &__sessions
+    width: 100%
+    &-head
+      display: flex
+      flex-flow: row nowrap
+      justify-content: flex-start
+      align-items: center
+      margin-bottom: 10px
+      &-cell
+        width: 190px
+        color: $grey
+        font:
+          size: 14px
+          weight: 500
+        &:last-child
+          text-align: right
+    &-item
+      padding: 10px 20px 10px 25px
+      border-radius: 10px
+      background-color: $grey-light
+      &:not(:last-child)
+        margin-bottom: 10px
+      &-inner
+        display: flex
+        flex-flow: row nowrap
+        justify-content: flex-start
+        align-items: center
+      &-heads
+        display: none
+      &-browser
+        width: 160px
+        font:
+          size: 14px
+          weight: 500
+      &-region
+        width: 180px
+        color: $grey
+        font:
+          size: 14px
+          weight: 500
+      &-ip
+        width: 180px
+        color: $grey
+        font:
+          size: 14px
+          weight: 500
+      &-activity
+        width: 190px
+        color: $grey
+        font:
+          size: 14px
+          weight: 500
+      &-actions
+        width: 150px
+        margin-left: auto
+        text-align: right
+      &-remove
+        margin-left: auto
+
+@media only screen and (max-width: $adaptive)
+  .settings
+    &__heading
+      display: none
+    &__head
+      display: flex
+      flex-flow: row nowrap
+      justify-content: space-between
+      align-items: center
+      width: calc(100% + 20px)
+      margin-left: -10px
+      padding: 25px 0
+      &-title
+        position: relative
+        padding: 15px 20px 15px 40px
+        border-radius: 10px
+        background-color: $white
+        line-height: 1.33
+        font:
+          size: 14px
+          weight: 500
+        &:before
+          content: ""
+          position: absolute
+          top: calc(50% - 6px)
+          left: 20px
+          width: 12px
+          height: 12px
+          background:
+            image: url('../img/icons/gear-gradient-small.svg')
+            size: contain
+            position: center
+            repeat: no-repeat
+      &-filter
+        position: relative
+        &.js-settings-filter--active > .settings__head-filter-item:after
+          transform: rotate(180deg)
+        & > .settings__head-filter-item:after
+          content: ''
+          position: absolute
+          right: 12px
+          top: 20px
+          width: 14px
+          height: 8px
+          transition: transform .3s ease
+          background:
+            image: url('../img/icons/caret.svg')
+            size: contain
+            position: center
+            repeat: no-repeat
+        &-inner
+          z-index: 1
+          position: absolute
+          top: 48px
+          right: 0
+          display: none
+          margin-top: -48px
+          padding-top: 48px
+          border-radius: 10px
+          background-color: $white
+          box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12)
+        &-item
+          z-index: 2
+          position: relative
+          display: block
+          height: 48px
+          padding: 11px 40px 11px 15px
+          color: $black
+          cursor: pointer
+          background-color: $white
+          border-radius: 10px
+          text-align: right
+          text-decoration: none
+          white-space: nowrap
+          font:
+            size: 15px
+            weight: 500
+    &__sidebar
+      display: none
+    &__main
+      width: 100%
+      flex-flow: column nowrap
+    &__col
+      width: 100% !important
+      &:last-child
+        margin-bottom: -35px
+    &__card
+      width: calc(100% + 40px)
+      margin: 0 0 35px -20px !important
+      padding: 20px 10px
+      &--desktop
+        display: none
+      &--mobile
+        display: block
+    &__phone
+      flex-flow: column nowrap
+      &-col
+        align-items: flex-start
+        width: 100% !important
+      &-code
+        opacity: 0
+        margin-top: 10px
+      &-result
+        margin-top: 10px
+      &-resend
+        margin: 20px 0 0
+    &__email
+      &-approved
+        width: calc(100% - 130px)
+    &__qr
+      flex-flow: column nowrap
+      justify-content: flex-start
+      align-items: center
+      &-image
+        width: 130px
+        height: 130px
+        margin: 0 0 10px
+      &-desc
+        width: 100%
+        text-align: center
+    &__twofactor
+      flex-flow: row wrap
+      &-input
+        width: 100%
+        margin-bottom: 25px
+      &-btn
+        width: 100%
+      &-approved
+        width: calc(100% - 60px)
+    &__blacklist
+      &-head
+        display: none
+      &-item
+        flex-flow: row wrap
+        padding: 10px
+        &-use
+          width: 100%
+          margin-bottom: 10px
+        &-date
+          width: 90px
+        &-remove
+          justify-content: flex-end
+          width: calc(100% - 90px)
+    &__sessions
+      &-head
+        display: none
+      &-item
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+        align-items: flex-start
+        padding: 10px
+        &-heads
+          display: block
+          width: 50%
+        &-head
+          color: $grey
+          font:
+            size: 14px
+            weight: 500
+          &:not(:last-child)
+            margin-bottom: 10px
+        &-inner
+          flex-flow: column nowrap
+          width: 50%
+          & > *
+            width: 100%
+            text-align: right
+            color: $black
+            &:not(:last-child)
+              margin-bottom: 10px
+    &__verification
+      flex-flow: column nowrap
+      width: 100%
+      &-desc
+        width: 100%
+      &-actions
+        flex-flow: column nowrap
+      &-approved,
+      &-declined
+        width: 100%
+        margin: 0 0 25px
+    &__subgrid
+      flex-flow: column nowrap
+      .settings__card
+        width: calc(100% + 40px) !important
+        &:not(:last-child)
+          margin-bottom: 25px !important

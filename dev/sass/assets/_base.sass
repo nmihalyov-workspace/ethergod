@@ -1,0 +1,40 @@
+*
+  box-sizing: border-box
+
+// html
+//   @include scrollbar
+
+body
+  width: 100%
+  padding-top: 62px
+  background-color: $grey-light
+  color: $black
+  line-height: 1.5
+  font:
+    family: 'Segoe UI', Helvetica, sans-serif
+    size: 16px
+    weight: 300
+
+p
+  margin: 0
+
+h1, h2, h3, h4, h5, h6
+  margin: 0
+
+.container
+  width: 100%
+  .wrapper
+    max-width: 1280px
+    width: 100%
+    margin: 0 auto
+    padding: 0 15px
+
+@media only screen and (max-width: $adaptive)
+  body
+    padding-top: 64px
+    padding-bottom: 59px
+
+  .container
+    .wrapper
+      max-width: 370px
+      padding: 0 20px

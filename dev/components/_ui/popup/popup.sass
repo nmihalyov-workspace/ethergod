@@ -1,0 +1,610 @@
+.popup
+  z-index: 999999
+  position: fixed
+  top: 0
+  left: 0
+  display: none
+  width: 100%
+  height: 100%
+  cursor: pointer
+  &__container
+    position: relative
+    width: 100%
+    height: 100%
+    padding: 50px 0
+    overflow: scroll
+  &__backdrop
+    z-index: 1
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: rgba(255, 255, 255, 0.7)
+  &__wrapper
+    z-index: 2
+    position: relative
+    min-height: 100%
+    width: 100%
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+  &__window
+    overflow: hidden
+    position: relative
+    width: 600px
+    background-color: #fff
+    box-shadow: 0px 0px 12px -4px rgba(13, 13, 30, 0.3)
+    border-radius: 10px
+    cursor: auto
+    &--statistics
+      width: 280px
+    &--auth
+      width: 680px
+      padding-right: 340px
+      background:
+        position: center
+        size: cover
+        repeat: no-repeat
+      .popup__close
+        margin-right: -340px
+        background-image: url('../img/icons/close-white.svg')
+    &--chatrules
+      width: 320px
+  &__refresh
+    display: inline-block
+    width: 16px
+    height: 16px
+    margin: 0 0 -3px 8px
+    cursor: pointer
+    transition: all .3s ease
+    background:
+      image: url('../img/icons/refresh.svg')
+      position: center
+      size: contain
+      repeat: no-repeat
+    &:hover
+      background-image: url('../img/icons/refresh-violet.svg')
+    &--loading
+      animation: refresh 1s ease
+      background-image: url('../img/icons/refresh-violet.svg')
+  &__content
+    padding: 0 25px 25px
+    background-color: $white
+  &__head
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: center
+    padding: 7px 5px 7px 15px
+    background-color: $white
+  &__title
+    position: relative
+    padding-left: 25px
+    font:
+      size: 14px
+      weight: 500
+    &:before
+      content: ''
+      position: absolute
+      top: 3px
+      left: 0
+      width: 16px
+      height: 16px
+      background:
+        size: contain
+        position: center
+        repeat: no-repeat
+    &[data-icon="default"]:before
+      background-image: url('../img/icons/eth.svg')
+    &[data-icon="statistics"]:before
+      background-image: url('../img/icons/statistics-violet.svg')
+  &__close
+    width: 20px
+    height: 20px
+    cursor: pointer
+    background:
+      image: url('../img/icons/close.svg')
+      position: center
+      repeat: no-repeat
+  &__wallet
+    &-unverified
+      z-index: 3
+      position: absolute
+      top: 0
+      left: -5px
+      display: flex
+      flex-flow: row nowrap
+      justify-content: center
+      align-items: center
+      width: calc(100% + 10px)
+      height: calc(100% + 10px)
+      padding: 5px
+      background-color: rgba(255, 255, 255, .7)
+      backdrop-filter: blur(3px)
+    &-content
+      position: relative
+      display: flex
+      flex-flow: column nowrap
+      justify-content: flex-start
+      align-items: center
+      padding-top: 25px
+    &-auth
+      margin-top: 35px
+      border-radius: 10px 10px 0 0
+      background-color: $grey-light
+      &-text
+        padding: 12px 0
+        text-align: center
+        font:
+          size: 14px
+          weight: 500
+  &__dropdown
+    position: relative
+    display: inline-block
+    margin-bottom: 25px
+    &.js-popup-dropdown--active
+      & > .popup__dropdown-item:after
+        transform: rotate(180deg)
+      .popup__dropdown-item:hover
+        background-color: $white
+    &--reverse > .popup__dropdown-item:after
+      left: auto !important
+      right: -24px
+    & > .popup__dropdown-item
+      background-color: $grey-light
+      &:after
+        content: ''
+        position: absolute
+        left: -24px
+        top: 10px
+        width: 24px
+        height: 24px
+        transition: transform .3s ease
+        background:
+          image: url('../img/icons/caret.svg')
+          position: center
+          repeat: no-repeat
+    &-item
+      z-index: 2
+      position: relative
+      padding: 9px 10px 9px 35px
+      border-radius: 10px
+      cursor: pointer
+      white-space: nowrap
+      transition: background-color .3s ease
+      font:
+        size: 15px
+        weight: 500
+      &:before
+        content: ''
+        position: absolute
+        left: 12px
+        top: 12px
+        width: 16px
+        height: 16px
+        background:
+          size: contain
+          position: center
+          repeat: no-repeat
+      &[data-icon="eth"]:before
+        background-image: url('../img/icons/eth.svg')
+      &[data-icon="eth-grey"]:before
+        background-image: url('../img/icons/eth-grey.svg')
+    &-inner
+      z-index: 1
+      position: absolute
+      top: 0
+      left: 0
+      display: none
+      padding-top: 40px
+      border-radius: 10px
+      background-color: $grey-light
+      box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.12)
+  &__input
+    margin-bottom: 20px
+  &__qr
+    width: 130px
+    height: 130px
+    margin-bottom: 10px
+  &__desc
+    color: $grey
+    text-align: center
+    line-height: 1.33
+    font:
+      size: 14px
+      weight: 500
+    &:not(:last-child)
+      margin-bottom: 25px
+  &__checkbox
+    align-self: flex-start
+    margin-bottom: 25px
+  &__dropdowns
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    margin-bottom: 25px
+    .popup__dropdown
+      margin-bottom: 0
+  &__swap
+    width: 20px
+    height: 20px
+    margin: 0 15px
+    background:
+      image: url('../img/icons/swap.svg')
+      size: contain
+      position: center
+      repeat: no-repeat
+  &__vip
+    padding-top: 25px
+    &--progress
+      display: flex
+      flex-flow: column nowrap
+      justify-content: flex-start
+      align-items: center
+    &-image
+      width: 100%
+      height: auto
+      margin-bottom: 10px
+    &-desc
+      width: 515px
+      margin-bottom: 25px
+      color: $grey
+      text-align: center
+      line-height: 1.33
+      font:
+        size: 14px
+        weight: 500
+  &__statistics
+    width: calc(100% + 20px)
+    margin-bottom: -10px
+    margin-left: -10px
+    &-heading
+      margin-bottom: 5px
+      font:
+        size: 16px
+        weight: 500
+    &-grid
+      margin-bottom: 20px
+    &-row
+      display: flex
+      flex-flow: row nowrap
+      justify-content: space-between
+      align-items: flex-start
+      &:not(:last-child)
+        margin-bottom: 10px
+    &-cell
+      padding: 10px
+      background-color: $grey-light
+      border-radius: 10px
+      &:first-child
+        width: 140px
+      &:last-child
+        width: 100px
+    &-subheading
+      color: $grey
+      font:
+        size: 14px
+        weight: 500
+    &-value
+      font:
+        size: 15px
+        weight: 500
+      span
+        position: relative
+        &:after
+          content: ''
+          position: absolute
+          right: -18px
+          top: 2px
+          width: 14px
+          height: 14px
+          border-radius: 50%
+          background-image: $gradient
+    &-win
+      color: $green
+      font:
+        size: 15px
+        weight: 500
+    &-lose
+      color: $red
+      font:
+        size: 15px
+        weight: 500
+    &-table
+      &-head
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+        align-items: center
+        margin-bottom: 10px
+        .popup__statistics-table-cell
+          padding-right: 0 !important
+          color: $grey
+          font:
+            size: 14px
+            weight: 500
+          &:after
+            display: none
+      &-row
+        display: flex
+        flex-flow: row nowrap
+        justify-content: space-between
+        align-items: center
+        padding: 10px
+        border-radius: 10px
+        background-color: $grey-light
+        font:
+          size: 15px
+          weight: 500
+        &:not(:last-child)
+          margin-bottom: 10px
+      &-cell
+        &:first-child
+          overflow: hidden
+          text-overflow: ellipsis
+          width: 100px
+          white-space: nowrap
+        &:last-child
+          position: relative
+          padding-right: 18px
+          &:after
+            content: ''
+            position: absolute
+            right: 0
+            top: 5px
+            width: 14px
+            height: 14px
+            border-radius: 50%
+            background-image: $gradient
+        &--win
+          color: $green
+  &__auth
+    &-form
+      padding-top: 25px
+      .popup__checkbox
+        .checkbox__text
+          font-size: 13px
+          a
+            color: $violet
+            text-decoration: none
+    &-actions
+      display: flex
+      flex-flow: row nowrap
+      justify-content: space-between
+      align-items: center
+    &-google
+      flex-shrink: 0
+      display: block
+      width: 48px
+      height: 48px
+      margin-left: 10px
+      border-radius: 10px
+      background-color: $red
+      background:
+        image: url('../img/icons/google.svg')
+        position: center
+        repeat: no-repeat
+    &-forget
+      display: block
+      margin-top: 25px
+      color: $violet
+      text-align: center
+      text-decoration: none
+      font:
+        size: 14px
+        weight: 500
+  &__chatrules
+    padding: 10px 10px 0
+    &-item
+      display: flex
+      flex-flow: row nowrap
+      justify-content: flex-start
+      align-items: flex-start
+      &:not(:last-child)
+        margin-bottom: 15px
+    &-counter
+      flex-shrink: 0
+      width: 15px
+      color: $grey
+      font-size: 14px
+    &-text
+      font-size: 14px
+  &__user
+    &-info
+      display: flex
+      flex-flow: column nowrap
+      justify-content: center
+      align-items: center
+      padding: 30px 0 20px
+    &-name
+      position: relative
+      margin-bottom: 6px
+      padding-left: 22px
+      font:
+        size: 14px
+        weight: 500
+      &:before
+        content: ''
+        position: absolute
+        top: 3px
+        left: 0
+        width: 14px
+        height: 14px
+        background:
+          image: url('../img/icons/stage-new.svg')
+          size: contain
+          position: center
+          repeat: no-repeat
+    &-registered
+      margin-bottom: 15px
+      color: $grey
+      font-size: 14px
+    &-actions
+      display: flex
+      flex-flow: row nowrap
+      justify-content: center
+      align-items: center
+    &-action
+      margin: 0 13px
+      cursor: pointer
+      background:
+        position: center
+        repeat: no-repeat
+      &--active[data-action="blacklist"]
+        background-image: url('../img/icons/blacklist-violet.svg') !important
+      &[data-action="transfer"]
+        width: 12px
+        height: 12px
+        background-image: url('../img/icons/wallet-violet.svg')
+      &[data-action="blacklist"]
+        width: 16px
+        height: 16px
+        background-image: url('../img/icons/blacklist.svg')
+    &-table
+      &--statistics .popup__user-table
+        &-cell
+          &:nth-child(1)
+            width: 118px
+          &:nth-child(2)
+            width: 146px
+          &:nth-child(3)
+            width: 120px
+      &--tournament .popup__user-table
+        &-cell
+          &:nth-child(1)
+            width: 220px
+          &:nth-child(2)
+            width: 114px
+          &:nth-child(3)
+            width: 70px
+      &-head
+        display: flex
+        flex-flow: row nowrap
+        justify-content: flex-start
+        align-items: center
+        color: $grey
+        font:
+          size: 14px
+          weight: 500
+        .popup__user-table-cell
+          padding-right: 0 !important
+          color: $grey !important
+          &:after
+            display: none
+      &-row
+        width: calc(100% + 30px)
+        margin-left: -15px
+        padding: 0 15px
+        border-radius: 10px
+        color: $grey
+        background-color: $grey-light
+        font:
+          size: 14px
+          weight: 500
+        &:not(:last-child)
+          margin-bottom: 10px
+        &-heads
+          display: none
+        &-inner
+          display: flex
+          flex-flow: row nowrap
+          justify-content: flex-start
+          align-items: center
+      &-cell
+        padding: 15px 0
+        &:nth-child(4)
+          position: relative
+          width: 166px
+          padding-right: 20px
+          text-align: right
+          color: $black
+          &:after
+            content: ''
+            position: absolute
+            right: 0
+            top: 18px
+            width: 14px
+            height: 14px
+            border-radius: 50%
+            background-image: $gradient
+        &--win
+          color: $green !important
+        &--lose
+          color: $red !important
+        &--place
+          color: $violet !important
+
+@keyframes refresh
+  0%
+    transform: rotate(-360deg)
+  100%
+    transform: rotate(0)
+
+@media only screen and (max-width: $adaptive)
+  .popup
+    &__container
+      padding: 30px 0
+    &__window
+      max-width: 370px
+      width: calc(100% - 20px)
+      &--auth
+        width: calc(100% - 20px)
+        padding-right: 0
+        .popup__close
+          margin-right: 0
+          background-image: url('../img/icons/close.svg')
+      &--statistics
+        width: 280px
+    &__content
+      padding-left: 10px
+      padding-right: 10px
+    &__wallet-auth-text
+      font-size: 13px
+    &__vip
+      &-desc
+        width: 100%
+    &__statistics
+      width: calc(100% - 10px)
+      margin-left: auto
+      margin-right: auto
+    &__user
+      &-table
+        padding-top: 25px
+        // &--statistics .popup__user-table
+        &-head
+          display: none
+        &-row
+          display: flex
+          flex-flow: row nowrap
+          justify-content: space-between
+          align-items: flex-start
+          width: 100%
+          margin-left: 0
+          padding: 10px 10px 0
+          &-heads
+            display: flex
+            flex-flow: column nowrap
+            width: 130px
+          &-head
+            margin-bottom: 10px
+            color: $grey
+            font:
+              size: 14px
+              weight: 500
+          &-inner
+            flex-flow: column nowrap
+            width: calc(100% - 130px)
+            & > *
+              width: 100% !important
+              margin-bottom: 10px
+              padding: 0
+              text-align: right
+              color: $black
+            .popup__user-table-cell
+              &:nth-child(4)
+                padding-right: 20px
+                &:after
+                  top: 4px

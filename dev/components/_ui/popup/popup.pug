@@ -1,0 +1,253 @@
+include ../tabs/tabs
+include ../button/button
+include ../input/input
+include ../checkbox/checkbox
+include ../../progress/progress
+include ../../levels/levels
+
+mixin popup(type, unverified)
+  .popup.js-popup.js-close-popup(data-popup=type)
+    .popup__backdrop
+    .popup__container
+      .popup__wrapper
+        .popup__window(class=`${type === 'statistics' ? 'popup__window--statistics' : type === 'auth' || type === 'password' ? 'popup__window--auth' : type === 'chatrules' ? 'popup__window--chatrules' : ''}`, style=`${type === 'auth' || type === 'password' ? 'background-image: url("img/inhtml/login-bg.png");' : ''}`)
+          .popup__head
+            if type === 'wallet'
+              p.popup__title(data-icon="default") Кошелёк
+            if type === 'vip'
+              p.popup__title(data-icon="default") Вип-программа
+            if type === 'auth'
+              p.popup__title(data-icon="default") Добро пожаловать
+            if type === 'password'
+              p.popup__title(data-icon="default") Забыли пароль?
+            if type === 'chatrules'
+              p.popup__title(data-icon="default") Правила чата
+            if type === 'storage'
+              p.popup__title(data-icon="default") Хранилище
+            if type === 'user'
+              p.popup__title(data-icon="default") SeymourBusts
+            if type === 'statistics'
+              p.popup__title(data-icon="statistics") Текущая статистика
+                a(href="javascript:void(0)").popup__refresh.js-popup-refresh
+            .popup__close.js-close-popup
+          .popup__content
+            if type === 'storage'
+              .popup__wallet
+                +tabs([{title: 'Депозит'}, {title: 'Вывод'}])
+                  .js-tabs-content(data-content="1")
+                    form.popup__wallet-content.js-form-storage-deposit(action="")
+                      .popup__dropdown.js-popup-dropdown(data-dropdown)
+                        .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth") 0.00000000
+                        .popup__dropdown-inner.js-popup-dropdown-inner
+                          .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth-grey") 1.22342420
+                      +input('number', 'Сумма перевода', 'ethSumToStorageDeposit', 'Введите сумму для депозита', '', 'popup__input', {error: 'Недостаточно средств', sum: true, min: 0.0005, max: 1.2234242})
+                      +button-primary('submit', 'Перевести в хранилище')
+                  .js-tabs-content(data-content="2")
+                    form.popup__wallet-content.js-form-storage-withdraw(action="")
+                      .popup__dropdown.js-popup-dropdown(data-dropdown)
+                        .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth") 0.00000000
+                        .popup__dropdown-inner.js-popup-dropdown-inner
+                          .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth-grey") 1.22342420
+                      +input('number', 'Сумма перевода', 'ethSumToStorageWithdraw', 'Введите сумму для вывода', '', 'popup__input', {error: 'Недостаточно средств', sum: true, min: 0, max: 1.2234242})
+                      +input('password', 'Пароль', 'password', 'Введите пароль', '', 'popup__input')
+                      +button-primary('submit', 'Вывести из хранилища')
+                .popup__wallet-auth
+                  p.popup__wallet-auth-text У вас отключена 2ФА. Подключите её для повышения безопасности
+                  +button-secondary('link', 'Включить двухфакторную аутентификацию', '', {link: '#'})
+            if type === 'wallet'
+              .popup__wallet
+                +tabs([{title: 'Депозит'}, {title: 'Вывод'}, {title: 'Обмен'}, {title: 'Перевод'}])
+                  .js-tabs-content(data-content="1")
+                    form.popup__wallet-content(action="")
+                      .popup__dropdown.js-popup-dropdown(data-dropdown)
+                        .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth") ETH
+                        .popup__dropdown-inner.js-popup-dropdown-inner
+                          .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth-grey") BTC
+                      +input('text', 'Ваш адрес для депозита ETH', 'ethDepositWalletAddress', '', '3AzDfas5sKcnbsksxC3eMdMbr3mXnzvgQY', 'popup__input', {copy: true})
+                      img.popup__qr(src="img/inhtml/qr.png", alt="")
+                      p.popup__desc Отправляйте деньги только на этот адрес<br>Количество подтверждений - 1
+                  .js-tabs-content(data-content="2")
+                    form.popup__wallet-content.js-form-withdraw(action="")
+                      if unverified
+                        .popup__wallet-unverified
+                          +button-primary('link', 'Пожалуйста, подтвердите почту для осуществления вывода', '', {link: '#'})
+                      .popup__dropdown.js-popup-dropdown(data-dropdown)
+                        .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth") 0.00000000
+                        .popup__dropdown-inner.js-popup-dropdown-inner
+                          .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth-grey") 1.22342420
+                      +input('text', 'Ваш адрес ETH', 'ethWithdrawalWalletAddress', 'Введите адрес кошелька ETH для вывода', '', 'popup__input', {error: 'Неверные данные'})
+                      +input('number', 'Сумма для вывода в ETH (минимум 0.0005 ETH)', 'ethSumToWithdraw', 'Введите сумму для вывода', '', 'popup__input', {error: 'Недостаточно средств', sum: true, min: 0.0005, max: 1.2234242})
+                      p.popup__desc При переводе из вашего остающегося баланса будет вычтено <br>0.0001 ETH в качестве комиссии за обработку операции
+                      +button-primary('submit', 'Вывести')
+                  .js-tabs-content(data-content="3")
+                    .popup__wallet-content
+                      p.popup__desc Внесите депозит в любой из поддерживаемых альтернатиных валют, доступных на Coinswitch, а затем автоматически конвертируйте его в валюту, доступную на EtherGod
+                      .popup__dropdowns
+                        .popup__dropdown.js-popup-dropdown(data-dropdown)
+                          .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth") USDT
+                          .popup__dropdown-inner.js-popup-dropdown-inner
+                            .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth-grey") RUB
+                        .popup__swap
+                        .popup__dropdown.popup__dropdown--reverse.js-popup-dropdown(data-dropdown)
+                          .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth") ETH
+                          .popup__dropdown-inner.js-popup-dropdown-inner
+                            .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth-grey") BTC
+                      p.popup__desc Транзакции Coinswitch могут занять от 5 до 30 минут
+                      +button-primary('link', 'Посмотреть курс обмена', '', {link: '#'})
+                  .js-tabs-content(data-content="4")
+                    form.popup__wallet-content.js-form-transfer(action="")
+                      .popup__dropdown.js-popup-dropdown(data-dropdown)
+                        .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth") 0.00000000
+                        .popup__dropdown-inner.js-popup-dropdown-inner
+                          .popup__dropdown-item.js-popup-dropdown-item(data-icon="eth-grey") 1.22342420
+                      +input('text', 'Имя получателя', 'recipientName', 'Введите имя получателя', '', 'popup__input', {error: 'Неверные данные'})
+                      +input('number', 'Сумма перевода', 'transferAmount', 'Введите сумму перевода', '', 'popup__input', {error: 'Недостаточно средств', sum: true, min: 0, max: 1.2234242, additional: '$300.00'})
+                      +checkbox('showInChat', 'popup__checkbox', false, false, 'Отобразить перевод в чате')
+                      +button-primary('submit', 'Перевести')
+                .popup__wallet-auth
+                  p.popup__wallet-auth-text У вас отключена 2ФА. Подключите её для повышения безопасности
+                  +button-secondary('link', 'Включить двухфакторную аутентификацию', '', {link: '#'})
+            if type === 'vip'
+              +tabs([{title: 'Прогресс'}, {title: 'Привилегии'}])
+                .js-tabs-content(data-content="1")
+                  .popup__vip.popup__vip--progress
+                    img(src="img/inhtml/vip.png", alt="").popup__vip-image
+                    +progress(true, true)
+                    p.popup__vip-desc Ваш прогресс рассчитывается исходя из суммы вашего оборота в казино. Переход на более высокий уровень даёт вам право на повышенные бонусы и эксклюзивное ВИП-обслуживание
+                    +button-primary('link', 'Узнать больше о вип-программе EtherGod', '', {link: '#'})
+                .js-tabs-content(data-content="2")
+                  .popup__vip
+                    +levels
+                    +button-primary('link', 'Узнать больше о вип-программе EtherGod', '', {link: '#'})
+            if type === 'statistics'
+              .popup__statistics
+                p.popup__statistics-heading Глобальная статистика
+                .popup__statistics-grid
+                  .popup__statistics-row
+                    .popup__statistics-cell
+                      p.popup__statistics-subheading Прибыль
+                      p.popup__statistics-value 
+                        span 0.000000000
+                    .popup__statistics-cell
+                      p.popup__statistics-subheading Выиграно
+                      p.popup__statistics-win 15000
+                  .popup__statistics-row
+                    .popup__statistics-cell
+                      p.popup__statistics-subheading Оборот
+                      p.popup__statistics-value 
+                        span 100.000000000
+                    .popup__statistics-cell
+                      p.popup__statistics-subheading Проиграно
+                      p.popup__statistics-lose 15000
+                p.popup__statistics-heading Последние результаты
+                .popup__statistics-table
+                  .popup__statistics-table-head
+                    p.popup__statistics-table-cell Игра
+                    p.popup__statistics-table-cell Выплата
+                  .popup__statistics-table-row
+                    p.popup__statistics-table-cell Monopoly with gnomes
+                    p.popup__statistics-table-cell -5.00000000
+                  .popup__statistics-table-row
+                    p.popup__statistics-table-cell Monopoly with gnomes
+                    p.popup__statistics-table-cell.popup__statistics-table-cell--win 100.00000000
+                  .popup__statistics-table-row
+                    p.popup__statistics-table-cell Monopoly with gnomes
+                    p.popup__statistics-table-cell.popup__statistics-table-cell--win 100.00000000
+                  .popup__statistics-table-row
+                    p.popup__statistics-table-cell Monopoly with gnomes
+                    p.popup__statistics-table-cell -10.00000000
+                  .popup__statistics-table-row
+                    p.popup__statistics-table-cell Monopoly with gnomes
+                    p.popup__statistics-table-cell.popup__statistics-table-cell--win 100.00000000
+            if type === 'auth'
+              .popup__auth
+                +tabs([{title: 'Вход'}, {title: 'Регистрация'}])
+                  .js-tabs-content(data-content="1")
+                    form.popup__auth-form(action="")
+                      +input('text', 'Электронная почта или логин', 'login', '', '', 'popup__input')
+                      +input('password', 'Пароль', 'password', '', '', 'popup__input')
+                      .popup__auth-actions
+                        +button-primary('submit', 'Играть сейчас', 'popup__auth-btn')
+                        a.popup__auth-google(href="javascript:void(0)")
+                      a.popup__auth-forget.js-open-popup(href="javascript:void(0)", data-popup="password") Забыли пароль?
+                  .js-tabs-content(data-content="2")
+                    form.popup__auth-form(action="")
+                      +input('text', 'Имя пользователя', 'userName', '', '', 'popup__input')
+                      +input('email', 'Электронная почта', 'email', '', '', 'popup__input')
+                      +input('password', 'Пароль', 'password', '', '', 'popup__input')
+                      +checkbox('policy', 'popup__checkbox', false, false, 'Мне исполнилось 18 лет, и я принимаю <a href="#">условия предоставления услуг</a>')
+                      .popup__auth-actions
+                        +button-primary('submit', 'Играть сейчас', 'popup__auth-btn')
+                        a.popup__auth-google(href="javascript:void(0)")
+            if type === 'password'
+              .popup__auth
+                form.popup__auth-form(action="")
+                  +input('email', 'Электронная почта', 'email', '', '', 'popup__input')
+                  +button-primary('submit', 'Восстановить пароль', 'popup__auth-btn')
+            if type === 'chatrules'
+              .popup__chatrules
+                .popup__chatrules-item
+                  p.popup__chatrules-counter 1
+                  p.popup__chatrules-text Не спамьте, не раздражайте и не оскорбляйте других пользователей. Также избегайте использования только заглавных букв.
+                .popup__chatrules-item
+                  p.popup__chatrules-counter 2
+                  p.popup__chatrules-text Не попрошайничайте и не просите займы, дожди, переводы и не обещайте удвоения криптовалюты.
+                .popup__chatrules-item
+                  p.popup__chatrules-counter 3
+                  p.popup__chatrules-text Не ведите себя подозрительно, ваши действия могут расценить как мошеннические.
+                .popup__chatrules-item
+                  p.popup__chatrules-counter 4
+                  p.popup__chatrules-text Не разрешается размещение сообщений с рекламой, предложением обмена, купли-продажи и прочих услуг в любой форме.
+                .popup__chatrules-item
+                  p.popup__chatrules-counter 5
+                  p.popup__chatrules-text Не используйте сервис коротких ссылок URL. Всегда размещайте реальные ссылки.
+                .popup__chatrules-item
+                  p.popup__chatrules-counter 6
+                  p.popup__chatrules-text Ипользуйте определенные языковые каналы соответственно.
+            if type === 'user'
+              .popup__user
+                .popup__user-info
+                  p.popup__user-name SeymourBusts
+                  p.popup__user-registered Зарегистрировался 31.02.2005
+                  .popup__user-actions
+                    .popup__user-action.js-open-popup(data-action="transfer", data-popup="wallet")
+                    .popup__user-action(data-action="blacklist")
+                +tabs([{title: 'Статистика'}, {title: 'Турнир'}])
+                  .js-tabs-content(data-content="1")
+                    .popup__user-table.popup__user-table--statistics
+                      .popup__user-table-head
+                        p.popup__user-table-cell Ставки
+                        p.popup__user-table-cell Выигрыши
+                        p.popup__user-table-cell Проигрыши
+                        p.popup__user-table-cell Оборот
+                      -for (let i = 1; i < 5; i++)
+                        .popup__user-table-row
+                          .popup__user-table-row-heads
+                            p.popup__user-table-row-head Ставки
+                            p.popup__user-table-row-head Выигрыши
+                            p.popup__user-table-row-head Проигрыши
+                            p.popup__user-table-row-head Оборот
+                          .popup__user-table-row-inner
+                            p.popup__user-table-cell 8 077 343
+                            p.popup__user-table-cell.popup__user-table-cell--win 2 175 239
+                            p.popup__user-table-cell.popup__user-table-cell--lose 5 902 096
+                            p.popup__user-table-cell 100.00000000
+                  .js-tabs-content(data-content="2")
+                    .popup__user-table.popup__user-table--tournament
+                      .popup__user-table-head
+                        p.popup__user-table-cell Наименование турнира
+                        p.popup__user-table-cell Дата
+                        p.popup__user-table-cell Место
+                        p.popup__user-table-cell Приз
+                      -for (let i = 1; i < 5; i++)
+                        .popup__user-table-row
+                          .popup__user-table-row-heads
+                            p.popup__user-table-row-head Название турнира
+                            p.popup__user-table-row-head Дата
+                            p.popup__user-table-row-head Место
+                            p.popup__user-table-row-head Приз
+                          .popup__user-table-row-inner
+                            p.popup__user-table-cell $10,000 - 24 hours
+                            p.popup__user-table-cell 2 175 239
+                            p.popup__user-table-cell.popup__user-table-cell--place 5 902 096
+                            p.popup__user-table-cell 100.00000000

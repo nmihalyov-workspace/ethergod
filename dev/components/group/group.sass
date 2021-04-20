@@ -1,0 +1,158 @@
+.group
+  padding-top: 30px
+  &__wrapper
+    padding: 0 35px 20px
+    border-radius: 10px
+    background-color: $white
+  &__head
+    position: relative
+    display: flex
+    flex-flow: row nowrap
+    justify-content: flex-start
+    align-items: center
+    width: calc(100% + 70px)
+    height: 120px
+    margin: 0 0 25px -35px
+    padding-left: 160px
+    border-radius: 10px
+    background:
+      image: url('../img/bgs/group-head-bg.png')
+      size: cover
+      position: center
+      repeat: no-repeat
+    &-img
+      position: absolute
+  &__heading
+    color: $white
+    font:
+      size: 24px
+      weight: 500
+  &__form
+    margin-bottom: 25px
+  &__actions
+    display: flex
+    flex-flow: row nowrap
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 25px
+  &__filter
+    position: relative
+    height: 50px
+    background-color: $grey-light
+    border-radius: 10px
+    display: flex
+    align-items: center
+    padding: 0 40px 0
+    color: $black
+    cursor: pointer
+    font:
+      size: 16px
+      weight: 500
+    &:before,
+    &:after
+      content: ''
+      position: absolute
+      background:
+        size: contain
+        position: center
+        repeat: no-repeat
+    &:before
+      left: 13px
+      top: 16px
+      width: 20px
+      height: 20px
+      background-image: url('../img/icons/swap.svg')
+    &:after
+      right: 12px
+      top: 22px
+      width: 14px
+      height: 8px
+      transition: transform .3s ease
+      background-image: url('../img/icons/caret.svg')
+    &--active:after
+      transform: rotate(180deg)
+  .js-group-content:not(:first-child)
+    display: none
+  &__providers
+    display: flex
+    flex-flow: row nowrap
+    justify-content: center
+    align-items: center
+    height: 50px
+    padding: 0 25px
+    border-radius: 10px
+    background-color: $grey-light
+    color: $black
+    text-decoration: none
+    transition: opacity .3s ease
+    font:
+      size: 16px
+      weight: 500
+    &:hover
+      opacity: 0.7
+  &__grid
+    display: flex
+    flex-flow: row wrap
+    justify-content: flex-start
+    align-items: flex-start
+    width: calc(100% + 12px)
+    margin-left: -6px
+    padding-bottom: 30px
+  &__card
+    width: 158px
+    margin: 0 6px 25px
+
+@media only screen and (max-width: $adaptive)
+  .group
+    &__wrapper
+      width: calc(100% + 40px)
+      margin: 100px 0 0 -20px
+      padding: 25px 10px 20px
+    &__head
+      width: 100%
+      height: 100px
+      margin: -140px auto 40px
+      padding-left: 140px
+      &-img
+        max-width: 140px
+        max-width: 140px
+        width: auto
+        height: auto
+        transform: translate(5px, 15px)
+    &__heading
+      font-size: 20px
+    &__inner
+      overflow: hidden
+      width: calc(100% + 20px)
+      margin-left: -10px
+      padding: 0 10px
+    &__actions
+      display: block
+      position: relative
+      white-space: nowrap
+      overflow: auto
+      width: calc(100% + 20px)
+      margin: -25px -10px -275px
+      padding: 25px 10px 300px 10px
+      -ms-overflow-style: none
+      scrollbar-width: none
+      &::-webkit-scrollbar
+        display: none
+    &__filter
+      margin-right: 25px
+    &__providers
+      display: inline-flex
+      white-space: nowrap
+    &__grid
+      z-index: 3
+      position: relative
+    &__card
+      position: relative
+      width: calc(33.33333% - 12px)
+      height: 0
+      padding-top: 40%
+      margin: 0 6px 10px
+      .game-card__wrapper
+        position: absolute
+        top: 0
+        left: 0

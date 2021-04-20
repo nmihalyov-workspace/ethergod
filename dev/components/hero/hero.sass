@@ -1,0 +1,19 @@
+.hero
+  &__wrapper
+    padding: 60px 0 85px
+    background:
+      image: url('../img/bgs/hero-bg.png')
+      position: center right
+      size: contain
+      repeat: no-repeat
+
+@media only screen and (max-width: $adaptive)
+  .hero
+    background:
+      image: url('../img/bgs/hero-bg.png')
+      position: top right
+      size: contain
+      repeat: no-repeat
+    &__wrapper
+      padding: 65vw 0 35px
+      background: none

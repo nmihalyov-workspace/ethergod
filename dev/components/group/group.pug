@@ -1,0 +1,24 @@
+include ../_ui/game-card/game-card
+include ../_ui/tabs/tabs
+include ../table/table
+
+mixin group
+  section.group.container
+    .wrapper
+      .group__wrapper
+        .group__head
+          img(src="img/inhtml/group-img.png", alt="", style="top: -31px; left: -20px;").group__head-img
+          p.group__heading Игры EtherGod
+        .group__inner
+          form.group__form(action="")
+            +input('search', '', 'search', 'Найди свой идеал в нашем каталоге игр', '', '', 'group__form-search')
+          .group__actions
+            .group__filter.js-group-filter Популярное
+            a.group__providers(href="#") Все провайдеры
+          .group__grid
+            -for (let i = 1; i <= 23; i++)
+              +game-card('group__card')
+          +tabs([{title: 'Казино'}, {title: 'Топ дня'}, {title: 'Турниры', online: true}], true)
+            -for (let i = 1; i <= 3; i++)
+              .js-tabs-content(data-content=i)
+                +table
